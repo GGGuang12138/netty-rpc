@@ -1,6 +1,7 @@
 package com.gg.pojo;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * @author Alan
@@ -59,5 +60,16 @@ public class MyRequest implements Serializable {
 
     public void setParameters(Object[] parameters) {
         this.parameters = parameters;
+    }
+
+    @Override
+    public String toString() {
+        return "MyRequest{" +
+                "reqId='" + reqId + '\'' +
+                ", className='" + className + '\'' +
+                ", methodName='" + methodName + '\'' +
+                ", parameterTypes=" + Arrays.toString(parameterTypes) +
+                ", parameters=" + Arrays.toString(parameters) +
+                '}';
     }
 }
