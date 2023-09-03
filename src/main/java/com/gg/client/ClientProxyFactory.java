@@ -1,7 +1,7 @@
 package com.gg.client;
 
 import com.gg.pojo.service.RpcService;
-import com.gg.pojo.RpcServiceHandler;
+import com.gg.pojo.ProxyRpcServiceHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -41,6 +41,6 @@ public class ClientProxyFactory {
     }
 
     public  RpcService getRpcService() {
-        return (RpcService) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[]{RpcService.class}, new RpcServiceHandler(handler));
+        return (RpcService) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[]{RpcService.class}, new ProxyRpcServiceHandler(handler));
     }
 }

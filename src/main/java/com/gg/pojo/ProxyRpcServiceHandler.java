@@ -8,16 +8,17 @@ import java.util.Arrays;
 import java.util.UUID;
 
 /**
+ * 客户端的代理类，代理RPCService，请求服务端并等待结果
  * @author Alan
  * @Description
  * @date 2023.08.06 12:04
  */
 
-public class RpcServiceHandler implements InvocationHandler {
+public class ProxyRpcServiceHandler implements InvocationHandler {
 
     private ClientMsgHandler clientMsgHandler;
 
-    public RpcServiceHandler(ClientMsgHandler clientMsgHandler) {
+    public ProxyRpcServiceHandler(ClientMsgHandler clientMsgHandler) {
         this.clientMsgHandler = clientMsgHandler;
     }
 
@@ -33,7 +34,9 @@ public class RpcServiceHandler implements InvocationHandler {
         myRequest.setMethodName(method.getName());
         myRequest.setParameterTypes(method.getParameterTypes());
         myRequest.setParameters(args);
-        this.clientMsgHandler.sendRpcRequest(myRequest);
-        return new User();
+        // 异步调用
+        SyncResponse syncResponse = this.clientMsgHandler.sendRpcRequest(myRequest);
+        // 同步等待结果
+        return syncResponse.getResult();
     }
 }
